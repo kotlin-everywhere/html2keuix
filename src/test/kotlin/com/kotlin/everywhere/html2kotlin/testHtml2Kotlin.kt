@@ -34,4 +34,12 @@ class TestHtml2Kotlin {
                 html2kotlin("""<input disabled>""")
         )
     }
+
+    @Test
+    fun testNested() {
+        // nested div
+        assertEquals("Html.div {\n    div()\n}", html2kotlin("<div><div></div></div>"))
+        // nested div & text
+        assertEquals("Html.div {\n    div {\n        +\"text\"\n    }\n}", html2kotlin("<div><div>text</div></div>"))
+    }
 }

@@ -1,0 +1,54 @@
+buildscript {
+    ext.kotlin_version = '1.1.3-2'
+
+
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
+    }
+}
+
+apply plugin: 'kotlin2js'
+compileKotlin2Js {
+    kotlinOptions.moduleKind = "commonjs"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.metaInfo = true
+    kotlinOptions.main = "noCall"
+    kotlinOptions.outputFile = "$project.buildDir.path/classes/main/${project.name}.js"
+}
+compileTestKotlin2Js {
+    kotlinOptions.moduleKind = "commonjs"
+    kotlinOptions.sourceMap = true
+    kotlinOptions.main = "noCall"
+    kotlinOptions.outputFile = "$project.buildDir.path/classes/test/${project.name}.js"
+}
+
+apply plugin: 'maven'
+
+repositories {
+    mavenCentral()
+    maven { url 'https://jitpack.io' }
+}
+
+dependencies {
+    compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
+    compile 'com.github.kotlin-everywhere:ktbrowser:def0fc89f7'
+    testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
+}
+
+build.doLast {
+    (configurations.compile + configurations.testCompile).each { File file ->
+        copy {
+            includeEmptyDirs = false
+
+            from zipTree(file.absolutePath)
+            into "${buildDir}/kotlin-javascript-dependencies"
+            include { fileTreeElement ->
+                def path = fileTreeElement.path
+                path.endsWith(".js") && (path.startsWith("META-INF/resources/") || !path.startsWith("META-INF/"))
+            }
+        }
+    }
+}

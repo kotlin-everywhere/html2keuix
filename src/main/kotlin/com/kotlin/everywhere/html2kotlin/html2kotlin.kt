@@ -14,9 +14,17 @@ private fun fixName(name: String): String {
     }
 }
 
-private fun render(node: Node): String {
+private fun indent(depth: Int): String {
+    if (depth > 0) {
+        return " ".repeat(depth)
+    } else {
+        return "Html."
+    }
+}
+
+private fun render(depth: Int, node: Node): String {
     return when (node.nodeType) {
-        Node.TEXT_NODE -> """text("${node.textContent}")"""
+        Node.TEXT_NODE -> """${indent(depth)}text("${node.textContent}")"""
         Node.ELEMENT_NODE -> {
             val element = node as Element
             val attributes = (0..(element.attributes.length - 1))
@@ -26,7 +34,7 @@ private fun render(node: Node): String {
                         (name, value) ->
                         """${fixName(name)}(${if (booleanPropertyNames.contains(name)) true else """"$value""""})"""
                     }
-            """${node.nodeName.toLowerCase()}(${attributes.joinToString(", ")})"""
+            """${indent(depth)}${node.nodeName.toLowerCase()}(${attributes.joinToString(", ")})"""
         }
         else -> """throw NotImplemented("$node")"""
     }
@@ -45,7 +53,7 @@ fun html2kotlin(html: String): String {
 
     if (body.childNodes.length == 1) {
         val head = body.childNodes[0]!!
-        return render(head)
+        return render(0, head)
     }
 
     return "error"

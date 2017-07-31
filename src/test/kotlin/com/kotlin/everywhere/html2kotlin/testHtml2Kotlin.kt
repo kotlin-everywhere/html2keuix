@@ -11,18 +11,18 @@ class TestHtml2Kotlin {
         assertEquals("", html2kotlin(""))
 
         // test string only
-        assertEquals("""text("Hello, world!")""", html2kotlin("Hello, world!"))
+        assertEquals("""Html.text("Hello, world!")""", html2kotlin("Hello, world!"))
     }
 
     @Test
     fun testElement() {
-        assertEquals("div()", html2kotlin("<div></div>"))
+        assertEquals("Html.div()", html2kotlin("<div></div>"))
     }
 
     @Test
     fun testStringProperty() {
         assertEquals(
-                """div(class_("col-md-10 col-md-offset-12"))""",
+                """Html.div(class_("col-md-10 col-md-offset-12"))""",
                 html2kotlin("""<div class="col-md-10 col-md-offset-12"></div>""")
         )
     }
@@ -30,7 +30,7 @@ class TestHtml2Kotlin {
     @Test
     fun testBooleanProperty() {
         assertEquals(
-                "input(disabled(true))",
+                "Html.input(disabled(true))",
                 html2kotlin("""<input disabled>""")
         )
     }

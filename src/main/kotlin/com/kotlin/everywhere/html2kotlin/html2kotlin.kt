@@ -72,10 +72,9 @@ fun html2kotlin(html: String): String {
         return ""
     }
 
-    if (body.childNodes.length == 1) {
-        val head = body.childNodes[0]!!
-        return render(0, head)
-    }
-
-    return "error"
+    return (0..(body.childNodes.length - 1))
+            .map { body.childNodes[it] }
+            .filterNotNull()
+            .map { render(0, it) }
+            .joinToString("\n")
 }

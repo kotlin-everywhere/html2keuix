@@ -42,4 +42,9 @@ class TestHtml2Kotlin {
         // nested div & text
         assertEquals("Html.div {\n    div {\n        +\"text\"\n    }\n}", html2kotlin("<div><div>text</div></div>"))
     }
+
+    @Test
+    fun testMultipleRootElements() {
+        assertEquals("Html.div()\nHtml.div()", html2kotlin("<div></div><div></div>"))
+    }
 }

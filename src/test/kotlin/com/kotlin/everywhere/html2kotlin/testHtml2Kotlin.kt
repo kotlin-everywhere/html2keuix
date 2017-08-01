@@ -47,4 +47,10 @@ class TestHtml2Kotlin {
     fun testMultipleRootElements() {
         assertEquals("Html.div()\nHtml.div()", html2kotlin("<div></div><div></div>"))
     }
+
+    @Test
+    fun testTrimString() {
+        // 들여쓰기용 공백은 모두 무시
+        assertEquals("Html.div {\n    div {\n        +\"text\"\n    }\n}", html2kotlin("<div>\n  <div>\n    text\n  </div>\n</div>"))
+    }
 }

@@ -25,11 +25,13 @@ private fun indent(depth: Int): String {
 private fun render(depth: Int, node: Node): String {
     return when (node.nodeType) {
         Node.TEXT_NODE -> {
-            if (depth == 0) {
-                """${indent(depth)}text("${node.textContent}")"""
-            }
-            else {
-                """${indent(depth)}+"${node.textContent}""""
+            val text = node.textContent?.trim() ?: ""
+            if (text == "") {
+                ""
+            } else if (depth == 0) {
+                """${indent(depth)}text("$text")"""
+            } else {
+                """${indent(depth)}+"$text""""
             }
         }
         Node.ELEMENT_NODE -> {
@@ -51,13 +53,14 @@ private fun render(depth: Int, node: Node): String {
                         .map { node.childNodes[it] }
                         .filterNotNull()
                         .map { render(depth + 1, it) }
+                        .filter { it.isNotEmpty() }
                         .joinToString("\n", prefix = " {\n", postfix = "\n${"    ".repeat(depth)}}")
                 "$row$children"
             } else {
                 row
             }
         }
-        else -> """throw NotImplemented("$node")"""
+        else -> """${"    ".repeat(depth)}TODO("$node")"""
     }
 }
 
@@ -76,5 +79,6 @@ fun html2kotlin(html: String): String {
             .map { body.childNodes[it] }
             .filterNotNull()
             .map { render(0, it) }
+            .filter { it.isNotEmpty() }
             .joinToString("\n")
 }

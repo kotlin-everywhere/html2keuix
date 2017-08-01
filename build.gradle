@@ -15,7 +15,6 @@ compileKotlin2Js {
     kotlinOptions.moduleKind = "commonjs"
     kotlinOptions.sourceMap = true
     kotlinOptions.metaInfo = true
-    kotlinOptions.main = "noCall"
     kotlinOptions.outputFile = "$project.buildDir.path/classes/main/${project.name}.js"
 }
 compileTestKotlin2Js {
@@ -34,7 +33,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile 'com.github.kotlin-everywhere:ktbrowser:def0fc89f7'
+    compile 'com.github.kotlin-everywhere:ktbrowser:dcd84d128ddef5cd3b4580f1b5453be791c290cd'
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 

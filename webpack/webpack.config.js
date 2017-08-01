@@ -4,7 +4,10 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 //noinspection JSUnusedGlobalSymbols
 module.exports = {
-    entry: './index.js',
+    entry: {
+        app: './app/index.js',
+        test: './test/index.js'
+    },
     resolve: {
         modules: ['./node_modules', '../build/kotlin-javascript-dependencies', '../build/classes/main', '../build/classes/test'].map(function (s) {
             return path.resolve(__dirname, s);
@@ -12,13 +15,19 @@ module.exports = {
     },
     output: {
         path: __dirname + "/build",
-        filename: "bundle.js"
+        filename: "[name].[hash].bundle.js"
     },
     devServer: {
         hot: true
     },
     plugins: [
-        new HtmlWebpackPlugin({template: './index.ejs'}),
+        new HtmlWebpackPlugin({
+            template: './app/template.ejs', chunks: ['app']
+        }),
+        new HtmlWebpackPlugin({
+            filename: 'test.html',
+            template: './test/template.ejs', chunks: ['test']
+        }),
         new webpack.HotModuleReplacementPlugin()
     ]
 };

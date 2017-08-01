@@ -25,6 +25,6 @@ val view: (model: Model) -> Html<Msg> = { (html) ->
 }
 
 fun main(args: Array<String>) {
-    runBeginnerProgram(document.getElementById("app")!!, Model(), update, view)
+    runBeginnerProgram(document.querySelector(args[0])!!, Model(), update, view)
 }
 

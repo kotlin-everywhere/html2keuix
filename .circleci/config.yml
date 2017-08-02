@@ -43,7 +43,7 @@ workflows:
   version: 2
   build:
     jobs:
-      - build_kotlin
+      - build_gradle
       - build_webpack:
           requires:
-            - build_kotlin
+            - build_gradle

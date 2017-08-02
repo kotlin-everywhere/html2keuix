@@ -11,13 +11,13 @@ jobs:
       - checkout
       - restore_cache:
           keys:
-          - v1-dependencies-{{ checksum "build.gradle" }}
-          - v1-dependencies-
+          - v1-gradle-dependencies-{{ checksum "build.gradle" }}
+          - v1-gradle-dependencies-
       - run: gradle dependencies
       - save_cache:
           paths:
             - ~/.m2
-          key: v1-dependencies-{{ checksum "build.gradle" }}
+          key: v1-gradle-dependencies-{{ checksum "build.gradle" }}
       - run: gradle build
   build_webpack:
       docker:
@@ -27,17 +27,17 @@ jobs:
         - checkout
         - restore_cache:
             keys:
-            - v1-dependencies-{{ checksum "webpack/package.json" }}
-            - v1-dependencies-
+            - v1-node-dependencies-{{ checksum "webpack/package.json" }}
+            - v1-node-dependencies-
 
         - run: (cd webpack && npm i)
 
         - save_cache:
             paths:
               - webpack/node_modules
-            key: v1-dependencies-{{ checksum "webpack/package.json" }}
+            key: v1-node-dependencies-{{ checksum "webpack/package.json" }}
 
-        - run: (cd webpack && npm run build && npm run publish)
+        - run: (tree build && cd webpack && npm run build && npm run publish)
 
 workflows:
   version: 2

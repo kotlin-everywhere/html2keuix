@@ -8,9 +8,6 @@ jobs:
       JVM_OPTS: -Xmx3200m
       TERM: dumb
     steps:
-      - persist_to_workspace:
-        root: .
-        paths: build
       - checkout
       - restore_cache:
           keys:
@@ -22,14 +19,18 @@ jobs:
             - ~/.m2
           key: v1-gradle-dependencies-{{ checksum "build.gradle" }}
       - run: gradle build
+      - persist_to_workspace:
+        root: .
+        paths:
+          - build
   build_webpack:
       docker:
         - image: circleci/node:7.10
       working_directory: ~/repo
       steps:
+        - checkout
         - attach_workspace:
           at: ~/repo
-        - checkout
         - restore_cache:
             keys:
             - v1-node-dependencies-{{ checksum "webpack/package.json" }}

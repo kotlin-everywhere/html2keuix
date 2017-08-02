@@ -1,9 +1,6 @@
 package com.kotlin.everywhere.html2kotlin
 
-import com.github.kotlin.everywhere.browser.Html
-import com.github.kotlin.everywhere.browser.onInput
-import com.github.kotlin.everywhere.browser.runBeginnerProgram
-import com.github.kotlin.everywhere.browser.value
+import com.github.kotlin.everywhere.browser.*
 import kotlin.browser.document
 
 data class Model(val html: String = "")
@@ -18,9 +15,11 @@ val update: (msg: Msg, model: Model) -> Model = { msg, model ->
 }
 
 val view: (model: Model) -> Html<Msg> = { (html) ->
-    Html.div {
-        textarea(value(html), onInput(::NewHtml))
-        pre(text = html2kotlin(html))
+    Html.div(class_("container")) {
+        div(class_("row")) {
+            textarea(class_("col-md-6"), value(html), onInput(::NewHtml))
+            pre(class_("col-md-6"), text = html2kotlin(html))
+        }
     }
 }
 

@@ -1,7 +1,11 @@
 {
   "private": true,
   "devDependencies": {
+    "css-loader": "^0.28.4",
+    "file-loader": "^0.11.2",
     "html-webpack-plugin": "^2.29.0",
+    "style-loader": "^0.18.2",
+    "url-loader": "^0.5.9",
     "webpack": "^3.2.0",
     "webpack-dev-server": "^2.5.1"
   },
@@ -10,6 +14,7 @@
     "dev": "webpack-dev-server"
   },
   "dependencies": {
+    "bootstrap": "^3.3.7",
     "snabbdom": "^0.6.9"
   }
 }

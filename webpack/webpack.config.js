@@ -2,12 +2,10 @@ var path = require('path');
 var webpack = require('webpack');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 
-//noinspection JSUnusedGlobalSymbols
-module.exports = {
-    entry: {
-        app: './app/index.js',
-        test: './test/index.js'
-    },
+var isProduction = process.env.NODE_ENV === "production";
+
+var config = {
+    entry: {app: './app/index.js'},
     resolve: {
         modules: ['./node_modules', '../build/kotlin-javascript-dependencies', '../build/classes/main', '../build/classes/test'].map(function (s) {
             return path.resolve(__dirname, s);
@@ -34,17 +32,25 @@ module.exports = {
             }
         ]
     },
-    devServer: {
-        hot: true
-    },
     plugins: [
         new HtmlWebpackPlugin({
             template: './app/template.ejs', chunks: ['app']
-        }),
+        })
+    ]
+};
+
+if (!isProduction) {
+    config.entry.test = './test/index.js';
+
+    config.plugins.push(
         new HtmlWebpackPlugin({
             filename: 'test.html',
             template: './test/template.ejs', chunks: ['test']
         }),
         new webpack.HotModuleReplacementPlugin()
-    ]
-};
+    );
+
+    config.devServer = {hot: true};
+}
+
+module.exports = config;

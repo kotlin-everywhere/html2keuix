@@ -20,9 +20,9 @@ jobs:
           key: v1-gradle-dependencies-{{ checksum "build.gradle" }}
       - run: gradle build
       - persist_to_workspace:
-        root: .
-        paths:
-          - build
+          root: .
+          paths:
+            - build
   build_webpack:
       docker:
         - image: circleci/node:7.10

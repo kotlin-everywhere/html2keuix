@@ -1,0 +1,49 @@
+version: 2
+jobs:
+  build_gradle:
+    docker:
+      - image: circleci/openjdk:8-jdk
+    working_directory: ~/repo
+    environment:
+      JVM_OPTS: -Xmx3200m
+      TERM: dumb
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+          - v1-dependencies-{{ checksum "build.gradle" }}
+          - v1-dependencies-
+      - run: gradle dependencies
+      - save_cache:
+          paths:
+            - ~/.m2
+          key: v1-dependencies-{{ checksum "build.gradle" }}
+      - run: gradle build
+  build_webpack:
+      docker:
+        - image: circleci/node:7.10
+      working_directory: ~/repo
+      steps:
+        - checkout
+        - restore_cache:
+            keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+
+        - run: (cd webpack && npm i)
+
+        - save_cache:
+            paths:
+              - webpack/node_modules
+            key: v1-dependencies-{{ checksum "package.json" }}
+
+        - run: (cd webpack && npm run build && npm run publish)
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build_kotlin
+      - build_webpack:
+          requires:
+            - build_kotlin

@@ -37,7 +37,7 @@ jobs:
               - webpack/node_modules
             key: v1-node-dependencies-{{ checksum "webpack/package.json" }}
 
-        - run: (tree build && cd webpack && npm run build && npm run publish)
+        - run: (find build && cd webpack && npm run build && npm run publish)
 
 workflows:
   version: 2

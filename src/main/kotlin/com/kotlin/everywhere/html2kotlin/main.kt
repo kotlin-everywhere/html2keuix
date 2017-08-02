@@ -17,6 +17,10 @@ val update: (msg: Msg, model: Model) -> Model = { msg, model ->
 val view: (model: Model) -> Html<Msg> = { (html) ->
     Html.div(class_("container")) {
         div(class_("row")) {
+            div(class_("col-md-12")) { +"HTML to Kotlin" }
+        }
+
+        div(class_("row")) {
             textarea(class_("col-md-6"), style("min-height: 500px"), value(html), onInput(::NewHtml))
             pre(class_("col-md-6"), style("min-height: 500px"), text = html2kotlin(html))
         }

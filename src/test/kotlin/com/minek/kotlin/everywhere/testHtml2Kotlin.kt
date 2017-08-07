@@ -1,5 +1,6 @@
-package com.kotlin.everywhere.html2kotlin
+package com.minek.kotlin.everywhere
 
+import com.minek.kotlin.everywhere.html2keuix.html2kotlin
 import org.junit.Test
 import kotlin.test.assertEquals
 

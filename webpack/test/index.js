@@ -1,1 +1,1 @@
-require('../../build/classes/test/html2kotlin');
+require('../../build/classes/test/html2keuix-test');

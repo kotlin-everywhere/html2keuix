@@ -1,6 +1,6 @@
-package com.kotlin.everywhere.html2kotlin
+package com.minek.kotlin.everywhere.html2keuix
 
-import com.github.kotlin.everywhere.browser.*
+import com.minek.kotlin.everywhere.keuix.browser.*
 import kotlin.browser.document
 
 data class Model(val html: String = "")
@@ -27,6 +27,7 @@ val view: (model: Model) -> Html<Msg> = { (html) ->
     }
 }
 
+@JsName("main")
 fun main(args: Array<String>) {
     runBeginnerProgram(document.querySelector(args[0])!!, Model(), update, view)
 }

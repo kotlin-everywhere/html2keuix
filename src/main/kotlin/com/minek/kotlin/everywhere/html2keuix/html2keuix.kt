@@ -1,4 +1,4 @@
-package com.kotlin.everywhere.html2kotlin
+package com.minek.kotlin.everywhere.html2keuix
 
 import org.w3c.dom.Element
 import org.w3c.dom.Node

@@ -4,10 +4,11 @@ var HtmlWebpackPlugin = require('html-webpack-plugin');
 
 var isProduction = process.env.NODE_ENV === "production";
 
+// noinspection JSUnusedGlobalSymbols
 var config = {
     entry: {app: './app/index.js'},
     resolve: {
-        modules: ['./node_modules', '../build/kotlin-javascript-dependencies', '../build/classes/main', '../build/classes/test'].map(function (s) {
+        modules: ['./node_modules', '../build/kotlin-javascript-dependencies', '../build/classes/main'].map(function (s) {
             return path.resolve(__dirname, s);
         })
     },

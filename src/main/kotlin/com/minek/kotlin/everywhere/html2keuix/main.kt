@@ -17,7 +17,7 @@ val update: (msg: Msg, model: Model) -> Model = { msg, model ->
 val view: (model: Model) -> Html<Msg> = { (html) ->
     Html.div(class_("container")) {
         div(class_("row")) {
-            div(class_("col-md-12")) { +"HTML to Kotlin" }
+            div(class_("col-md-12")) { +"Html2Keuix" }
         }
 
         div(class_("row")) {

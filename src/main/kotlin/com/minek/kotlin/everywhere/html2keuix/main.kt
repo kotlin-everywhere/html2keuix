@@ -23,9 +23,9 @@ val view: (model: Model) -> Html<Msg> = { (html) ->
 
     Html.div(class_("wrap")){
         div(class_("header"), style("")) {
-            div(class_("col-md-12 _headerTitle")) {
-                +"Html2Keuix"
-                div(class_("_headerRightWrap")){
+            div(class_("col-md-12")) {
+                span(class_("_headerTitle")) { +"Html2Keuix" }
+                span(class_("_headerRightWrap")){
 
                     a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
                         img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))

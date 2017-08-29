@@ -1,7 +1,8 @@
 package com.minek.kotlin.everywhere.html2keuix
 
-import com.minek.kotlin.everywhere.keuix.browser.*
+
 import com.minek.kotlin.everywhere.keuix.browser.html.*
+import com.minek.kotlin.everywhere.keuix.browser.runBeginnerProgram
 import kotlin.browser.document
 
 data class Model(val html: String = "")
@@ -9,57 +10,55 @@ data class Model(val html: String = "")
 sealed class Msg
 data class NewHtml(val html: String) : Msg()
 
-val update: (msg: Msg, model: Model) -> Model = { msg, model ->
-    when (msg) {
+fun update(msg: Msg, model: Model): Model {
+    return when (msg) {
         is NewHtml -> model.copy(html = msg.html)
     }
 }
 
-val view: (model: Model) -> Html<Msg> = { (html) ->
-    /**
-     * Jiyeon Bootstrap 디자인
-     *
-     */
 
-    Html.div(class_("wrap")){
-        div(class_("header"), style("")) {
-            div(class_("col-md-12")) {
-                span(class_("_headerTitle")) { +"Html2Keuix" }
-                span(class_("_headerRightWrap")){
+fun view(model: Model): Html<Msg> {
+    return Html.div(class_("wrap")) {
+        +viewHead
 
-                    a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
-                        img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))
-                        + "https://github.com/kotlin-everywhere/html2keuix"
-                    }
-                }
-            }
-        }
-        div(class_("container")){
-            div(class_("form-inline"), style("text-align:center; ")) {
-                div(class_("control-label col-md-12 _bTitle")) { +"Html2Keuix is help to your easy programming" }
-                div(class_("control-label col-md-12 _subTitle1")) { +"Input your Html code in textarea." }
-                div(class_("control-label col-md-12 _subTitle2")) { +"It's help to translate to keuix code automatically." }
-                div(class_("col-md-6")){
-                    textarea(class_("rounded form-control _textarea"), value(html), onInput(::NewHtml))
+        div(class_("container")) {
+            div(class_("form-inline"), style("text-align:center")) {
+                div(class_("control-label col-md-12 _bTitle"), text = "Html2Keuix is help to your easy programming")
+                div(class_("control-label col-md-12 _subTitle1"), text = "Input your Html code in textarea.")
+                div(class_("control-label col-md-12 _subTitle2"), text = "It's help to translate to keuix code automatically.")
+                div(class_("col-md-6")) {
+                    textarea(class_("rounded form-control _textarea"), value(model.html), onInput(::NewHtml))
                 }
                 div(class_("col-md-6")) {
-                    pre(class_("form-control rounded _pre"), text = html2kotlin(html))
+                    pre(class_("form-control rounded _pre"), text = html2kotlin(model.html))
                 }
             }
-
         }
-        div(class_("footer")) {
-            div(class_("col-md-12 _btnWrap")) {
-                button(class_("btn btn-secondary _exampleBtn"), dataset("toggle","tooltip"), dataset("placement","top"), attribute("type","button"),
-                        attribute("title","Apple")) { +"Example1" }
-                button(class_("btn btn-secondary _exampleBtn"), dataset("toggle","tooltip"), dataset("placement","top"), attribute("type","button"),
-                        attribute("title","Apple")) { +"Example2" }
+        +viewFooter
+    }
+}
+
+val viewHead: Html<Msg> = Html.div(class_("header")) {
+    div(class_("col-md-12 _headerTitle")) {
+        span(class_("_headerTitle")) { +"Html2Keuix" }
+        span(class_("_headerRightWrap")){
+
+            a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
+                img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))
+                + "https://github.com/kotlin-everywhere/html2keuix"
             }
         }
+    }
+}
+
+val viewFooter: Html<Msg> = Html.div(class_("footer")) {
+    div(class_("col-md-12 _btnWrap")) {
+        button(class_("btn btn-secondary _exampleBtn"), text = "Example1")
+        button(class_("btn btn-secondary _exampleBtn"), text = "Example2")
     }
 }
 
 @JsName("main")
 fun main(args: Array<String>) {
-    runBeginnerProgram(document.querySelector(args[0])!!, Model(), update, view)
+    runBeginnerProgram(document.querySelector(args[0])!!, Model(), ::update, ::view)
 }

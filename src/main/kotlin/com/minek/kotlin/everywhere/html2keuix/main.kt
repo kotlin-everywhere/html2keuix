@@ -1,5 +1,6 @@
 package com.minek.kotlin.everywhere.html2keuix
 
+
 import com.minek.kotlin.everywhere.keuix.browser.html.*
 import com.minek.kotlin.everywhere.keuix.browser.runBeginnerProgram
 import kotlin.browser.document
@@ -14,6 +15,7 @@ fun update(msg: Msg, model: Model): Model {
         is NewHtml -> model.copy(html = msg.html)
     }
 }
+
 
 fun view(model: Model): Html<Msg> {
     return Html.div(class_("wrap")) {
@@ -31,20 +33,19 @@ fun view(model: Model): Html<Msg> {
                     pre(class_("form-control rounded _pre"), text = html2kotlin(model.html))
                 }
             }
-
         }
-
         +viewFooter
     }
 }
 
 val viewHead: Html<Msg> = Html.div(class_("header")) {
     div(class_("col-md-12 _headerTitle")) {
-        +"Html2Keuix"
-        div(class_("_headerRightWrap")) {
+        span(class_("_headerTitle")) { +"Html2Keuix" }
+        span(class_("_headerRightWrap")){
+
             a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
                 img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))
-                +"https://github.com/kotlin-everywhere/html2keuix"
+                + "https://github.com/kotlin-everywhere/html2keuix"
             }
         }
     }

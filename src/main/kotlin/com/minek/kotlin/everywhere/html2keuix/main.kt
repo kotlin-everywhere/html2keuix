@@ -21,9 +21,9 @@ fun view(model: Model): Html<Msg> {
 
         div(class_("container")) {
             div(class_("form-inline"), style("text-align:center")) {
-                div(class_("control-label col-md-12 _bTitle"), text="Html2Keuix is help to your easy programming")
-                div(class_("control-label col-md-12 _subTitle1"), text="Input your Html code in textarea.")
-                div(class_("control-label col-md-12 _subTitle2"), text="It's help to translate to keuix code automatically.")
+                div(class_("control-label col-md-12 _bTitle"), text = "Html2Keuix is help to your easy programming")
+                div(class_("control-label col-md-12 _subTitle1"), text = "Input your Html code in textarea.")
+                div(class_("control-label col-md-12 _subTitle2"), text = "It's help to translate to keuix code automatically.")
                 div(class_("col-md-6")) {
                     textarea(class_("rounded form-control _textarea"), value(model.html), onInput(::NewHtml))
                 }

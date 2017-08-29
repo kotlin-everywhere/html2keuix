@@ -17,23 +17,13 @@ fun update(msg: Msg, model: Model): Model {
 
 fun view(model: Model): Html<Msg> {
     return Html.div(class_("wrap")) {
-        div(class_("header")) {
-            div(class_("col-md-12 _headerTitle")) {
-                +"Html2Keuix"
-                div(class_("_headerRightWrap")) {
-                    a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
-                        img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))
-                        +"https://github.com/kotlin-everywhere/html2keuix"
-                    }
-                }
-            }
-        }
+        +viewHead
 
         div(class_("container")) {
             div(class_("form-inline"), style("text-align:center")) {
-                div(class_("control-label col-md-12 _bTitle")) { +"Html2Keuix is help to your easy programming" }
-                div(class_("control-label col-md-12 _subTitle1")) { +"Input your Html code in textarea." }
-                div(class_("control-label col-md-12 _subTitle2")) { +"It's help to translate to keuix code automatically." }
+                div(class_("control-label col-md-12 _bTitle"), text="Html2Keuix is help to your easy programming")
+                div(class_("control-label col-md-12 _subTitle1"), text="Input your Html code in textarea.")
+                div(class_("control-label col-md-12 _subTitle2"), text="It's help to translate to keuix code automatically.")
                 div(class_("col-md-6")) {
                     textarea(class_("rounded form-control _textarea"), value(model.html), onInput(::NewHtml))
                 }
@@ -44,12 +34,26 @@ fun view(model: Model): Html<Msg> {
 
         }
 
-        div(class_("footer")) {
-            div(class_("col-md-12 _btnWrap")) {
-                button(class_("btn btn-secondary _exampleBtn"), text = "Example1")
-                button(class_("btn btn-secondary _exampleBtn"), text = "Example2")
+        +viewFooter
+    }
+}
+
+val viewHead: Html<Msg> = Html.div(class_("header")) {
+    div(class_("col-md-12 _headerTitle")) {
+        +"Html2Keuix"
+        div(class_("_headerRightWrap")) {
+            a(class_("_gitUrl"), href("https://github.com/kotlin-everywhere/html2keuix")) {
+                img(class_("_gitImg img-circle"), src("https://github.com/apple-touch-icon.png"))
+                +"https://github.com/kotlin-everywhere/html2keuix"
             }
         }
+    }
+}
+
+val viewFooter: Html<Msg> = Html.div(class_("footer")) {
+    div(class_("col-md-12 _btnWrap")) {
+        button(class_("btn btn-secondary _exampleBtn"), text = "Example1")
+        button(class_("btn btn-secondary _exampleBtn"), text = "Example2")
     }
 }
 

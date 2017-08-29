@@ -34,7 +34,7 @@ repositories {
 
 dependencies {
     compile "org.jetbrains.kotlin:kotlin-stdlib-js:$kotlin_version"
-    compile 'com.github.kotlin-everywhere:keuix-browser:c629c2011e81cdf0b2d4bfeeb498d2015082908f'
+    compile 'com.github.kotlin-everywhere:keuix-browser:45f1f137a8b8d5983314e4242cfa6e8d836a7bfe'
     testCompile "org.jetbrains.kotlin:kotlin-test-js:$kotlin_version"
 }
 

@@ -7,6 +7,8 @@ import kotlin.browser.document
 
 data class Model(val html: String = "")
 
+val examples = listOf("ONE" to "<h1>Hello</h1>", "TWO" to "<ul><li>1</li><li>2</li></ul>")
+
 sealed class Msg
 data class NewHtml(val html: String) : Msg()
 
@@ -53,8 +55,9 @@ val viewHead: Html<Msg> = Html.div(class_("header")) {
 
 val viewFooter: Html<Msg> = Html.div(class_("footer")) {
     div(class_("col-md-12 _btnWrap")) {
-        button(class_("btn btn-secondary _exampleBtn"), text = "Example1")
-        button(class_("btn btn-secondary _exampleBtn"), text = "Example2")
+        examples.forEach {
+            button(class_("btn btn-secondary _exampleBtn"), onClick(NewHtml(it.second)), text = it.first)
+        }
     }
 }
 

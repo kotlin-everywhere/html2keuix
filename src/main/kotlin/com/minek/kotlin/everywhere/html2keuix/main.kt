@@ -89,7 +89,7 @@ fun view(model: Model): Html<Msg> {
                     textarea(class_("rounded form-control _textarea"), value(model.html), onInput(::NewHtml))
                 }
                 div(class_("col-md-6")) {
-                    pre(class_("form-control rounded _pre"), text = html2kotlin(model.html))
+                    textarea(class_("form-control rounded _pre"), text = html2kotlin(model.html))
                 }
             }
         }

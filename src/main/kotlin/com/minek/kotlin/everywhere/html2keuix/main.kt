@@ -86,7 +86,7 @@ fun view(model: Model): Html<Msg> {
                 div(class_("control-label col-md-12 _subTitle1"), text = "Input your Html code in textarea.")
                 div(class_("control-label col-md-12 _subTitle2"), text = "It's help to translate to keuix code automatically.")
                 div(class_("col-md-6")) {
-                    textarea(class_("rounded form-control _textarea"), value(model.html), onInput(::NewHtml))
+                    textarea(class_("rounded form-control _textarea"), onInput(::NewHtml), text = model.html)
                 }
                 div(class_("col-md-6")) {
                     textarea(class_("form-control rounded _pre"), text = html2kotlin(model.html))

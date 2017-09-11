@@ -26,12 +26,10 @@ private fun render(depth: Int, node: Node): String {
     return when (node.nodeType) {
         Node.TEXT_NODE -> {
             val text = node.textContent?.trim() ?: ""
-            if (text == "") {
-                ""
-            } else if (depth == 0) {
-                """${indent(depth)}text("$text")"""
-            } else {
-                """${indent(depth)}+"$text""""
+            when {
+                text == "" -> ""
+                depth == 0 -> """${indent(depth)}text("$text")"""
+                else -> """${indent(depth)}+"$text""""
             }
         }
         Node.ELEMENT_NODE -> {

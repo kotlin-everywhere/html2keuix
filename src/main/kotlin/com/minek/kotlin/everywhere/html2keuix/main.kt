@@ -7,7 +7,7 @@ import kotlin.browser.document
 
 data class Model(val html: String = "")
 
-val o = """
+val bootstrapSignInForm = """
     | <div class="container">
     |   <form class="form-signin">
     |     <h2 class="form-signin-heading">Please sign in</h2>
@@ -24,7 +24,7 @@ val o = """
     |   </form>
     | </div>""".trimMargin()
 
-val t = """
+val bootstrapNavbar = """
     | <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
     |   <a class="navbar-brand" href="#">Fixed navbar</a>
     |   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
@@ -64,7 +64,7 @@ val t = """
     |   </div>
     | </footer>""".trimMargin()
 
-val examples = listOf("ONE" to o, "TWO" to t)
+val examples = listOf("bootstrap sign up form" to bootstrapSignInForm, "bootstrap navbar" to bootstrapNavbar)
 
 sealed class Msg
 data class NewHtml(val html: String) : Msg()
